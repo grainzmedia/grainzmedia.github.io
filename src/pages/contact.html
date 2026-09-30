@@ -1,0 +1,38 @@
+<!--{"out":"contact.html","nav":"contact","title":"Contact — GrainzMedia","description":"Get in touch with GrainzMedia about retail media or performance marketing."}-->
+<main id="main">
+  <div class="page-body">
+    <section class="container plain-hero reveal">
+      <h1>Let’s get <span class="hl-cyan">phygital</span></h1>
+      <p>Tell us what you want to achieve—whether that is building a retail media network or accelerating brand performance.</p>
+      <div class="contact-info">
+        <a href="mailto:hello@grainzmedia.com">hello@grainzmedia.com</a>
+        <a href="tel:+6566450498">+65 6645 0498</a>
+        <span>178 Paya Lebar Road, #02-04, Singapore 409030</span>
+      </div>
+    </section>
+    <section class="container">
+      <!-- Submits to the GrainzMedia Google Form (see README). Clear data-google-form to fall back to email. -->
+      <form class="form reveal" id="enquiry-form" novalidate
+            data-google-form="https://docs.google.com/forms/d/e/1FAIpQLSeu_qL9f6z7qm7SV5E-dOLqQxUMJWpCg3YwZRvDpnp2D3ui8g/formResponse"
+            data-entries='{"topic":"entry.1856372913","name":"entry.2040729383","company":"entry.1859513534","email":"entry.1740893934","message":"entry.719165291"}'>
+        <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <label for="f-topic">I’m interested in
+          <select id="f-topic" name="topic" required>
+            <option>Retail Media</option>
+            <option>Performance Marketing</option>
+            <option>Integrated campaign</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <div class="two">
+          <label for="f-name">Name<input id="f-name" name="name" autocomplete="name" required aria-describedby="e-name"><span class="err" id="e-name" hidden></span></label>
+          <label for="f-company">Company<input id="f-company" name="company" autocomplete="organization"></label>
+        </div>
+        <label for="f-email">Email<input id="f-email" type="email" name="email" autocomplete="email" inputmode="email" required aria-describedby="e-email"><span class="err" id="e-email" hidden></span></label>
+        <label for="f-message">How can we help?<textarea id="f-message" name="message" required placeholder="Tell us about your property, portfolio, objectives or current marketing challenge." aria-describedby="e-message"></textarea><span class="err" id="e-message" hidden></span></label>
+        <div><button class="btn btn-lg" type="submit">Send enquiry</button></div>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+</main>

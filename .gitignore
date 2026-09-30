@@ -1,0 +1,4 @@
+.DS_Store
+.claude/
+# Client-supplied source material (large; keep in shared storage, not in git)
+resources/

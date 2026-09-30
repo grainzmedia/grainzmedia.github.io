@@ -1,0 +1,9 @@
+{
+  "name": "GrainzMedia",
+  "short_name": "GrainzMedia",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#172c3f",
+  "theme_color": "#172c3f",
+  "icons": [{ "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}

@@ -1,0 +1,11 @@
+{
+  "audience-engagement": {"width": 2400, "height": 1410, "widths": [640,1024,1600,2400]},
+  "hero-atrium": {"width": 2400, "height": 1797, "widths": [640,1024,1600,2400]},
+  "hero-mall": {"width": 1779, "height": 884, "widths": [640,1024,1600,1779]},
+  "hero-performance": {"width": 2400, "height": 1600, "widths": [640,1024,1600,2400]},
+  "mall-wide": {"width": 1779, "height": 884, "widths": [640,1024,1600,1779]},
+  "performance-card": {"width": 1643, "height": 957, "widths": [640,1024,1600,1643]},
+  "property-friends": {"width": 2400, "height": 1600, "widths": [640,1024,1600,2400]},
+  "retail-shops": {"width": 1597, "height": 985, "widths": [640,1024,1597]},
+  "shopping-bags": {"width": 2400, "height": 1597, "widths": [640,1024,1600,2400]}
+}
