@@ -9,7 +9,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SITE = process.env.SITE_URL || 'https://www.grainzmedia.com';
+const SITE = process.env.SITE_URL || 'https://grainzmedia.github.io';
 const read = p => readFileSync(join(root, p), 'utf8');
 const partial = n => read(`src/partials/${n}.html`);
 

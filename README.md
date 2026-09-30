@@ -23,7 +23,7 @@ Drop a master JPEG in `tools/photos/`, run `bash tools/images.sh`, then use it i
 `{{picture name="file-name" alt="…" sizes="…"}}` (add `eager` for above-the-fold images).
 
 ## To finish before launch
-- Set `SITE_URL` to the real domain and rebuild (canonical, Open Graph and sitemap URLs).
+- `SITE_URL` defaults to https://grainzmedia.github.io. When a custom domain is attached, rebuild with `SITE_URL=https://your-domain node tools/build.mjs` (canonical, Open Graph and sitemap URLs).
 - Confirm the LinkedIn URL in `src/partials/footer.html` (currently a placeholder guess).
 - Replace the placeholder Privacy / Cookie / Press pages with real content.
 - Enquiry form: until a Google Form is connected (below) it opens the visitor's mail client.
