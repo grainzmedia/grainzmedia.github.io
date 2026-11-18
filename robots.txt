@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://grainzmedia.github.io/sitemap.xml
+Sitemap: https://www.grainzmedia.com/sitemap.xml
