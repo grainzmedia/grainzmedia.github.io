@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require get_template_directory() . '/inc/setup.php';
+require get_template_directory() . '/inc/enquiries.php';
 
 /** Page metadata generated from the static site's front matter, keyed by slug ("index" = front page). */
 function gm_pages() {

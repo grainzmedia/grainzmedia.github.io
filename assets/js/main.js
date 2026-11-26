@@ -148,6 +148,36 @@
       const d = new FormData(form);
       if (d.get('website')) return; // honeypot: bots fill this hidden field
 
+      const button = form.querySelector('button[type="submit"]');
+      const sent = () => {
+        form.reset();
+        required.forEach(f => f.removeAttribute('aria-invalid'));
+        status.classList.add('ok');
+        status.textContent = 'Thank you — your enquiry has been sent. We’ll be in touch soon.';
+      };
+      const failed = message => {
+        status.textContent = message || 'Sorry, we couldn’t send that. Please email hello@grainzmedia.com instead.';
+      };
+
+      // WordPress theme: the site itself stores the enquiry (window.gmEnquiry is set by the theme on the contact page).
+      const endpoint = window.gmEnquiry && window.gmEnquiry.url;
+      if (endpoint) {
+        button.disabled = true;
+        status.textContent = 'Sending…';
+        fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(d)) })
+          // Sent only when the endpoint itself confirms it; only its own 400/429 messages are shown to the visitor.
+          .then(r => r.json().catch(() => ({})).then(j => {
+            if (r.ok && j && j.ok === true) return;
+            const err = new Error('enquiry not accepted');
+            if ((r.status === 400 || r.status === 429) && j && j.message) err.userMessage = j.message;
+            throw err;
+          }))
+          .then(sent)
+          .catch(e => failed(e.userMessage))
+          .finally(() => { button.disabled = false; });
+        return;
+      }
+
       const action = form.dataset.googleForm;
       let entries = {};
       try { entries = JSON.parse(form.dataset.entries || '{}'); } catch { /* ignore */ }
@@ -156,20 +186,12 @@
       if (action && Object.keys(entries).length) {
         const body = new URLSearchParams();
         for (const [field, entryId] of Object.entries(entries)) body.append(entryId, String(d.get(field) ?? ''));
-        const button = form.querySelector('button[type="submit"]');
         button.disabled = true;
         status.textContent = 'Sending…';
         // no-cors: Google does not return a readable response, so a resolved request means "sent".
         fetch(action, { method: 'POST', mode: 'no-cors', body })
-          .then(() => {
-            form.reset();
-            required.forEach(f => f.removeAttribute('aria-invalid'));
-            status.classList.add('ok');
-            status.textContent = 'Thank you — your enquiry has been sent. We’ll be in touch soon.';
-          })
-          .catch(() => {
-            status.textContent = 'Sorry, we couldn’t send that. Please email hello@grainzmedia.com instead.';
-          })
+          .then(sent)
+          .catch(() => failed())
           .finally(() => { button.disabled = false; });
         return;
       }

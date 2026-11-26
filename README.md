@@ -28,6 +28,7 @@ node tools/build-wp.mjs     # → dist/grainzmedia/ and dist/grainzmedia.zip
 - On activation the theme creates the pages (Home, Retail Media, Performance Marketing, Insights, About, Contact, Press, Privacy Policy, Cookie Policy), sets Home as the front page and Insights as the posts page, creates the categories *Retail Media Insights* and *Performance Insights*, and turns on `/%postname%/` permalinks if none are set. Existing pages and settings are left alone.
 - Home, Retail Media, Performance Marketing, About and Contact always show the built-in design. Press, Privacy Policy and Cookie Policy show their placeholder until you write content for them in the editor.
 - Old static URLs such as `/about.html` redirect to the new pages.
+- The contact form in the theme posts to WordPress instead of the Google Form: each submission is saved under **Enquiries** in the admin and emailed to the site's admin address (Settings → General). The static site keeps using the Google Form.
 
 ## Adding a photo
 Drop a master JPEG in `tools/photos/`, run `bash tools/images.sh`, then use it in a page with
