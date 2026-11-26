@@ -7,6 +7,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { esc, expandPictures } from './picture.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = process.env.SITE_URL || 'https://www.grainzmedia.com';
@@ -20,26 +21,6 @@ const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath
 const hashOf = p => createHash('md5').update(readFileSync(join(root, p))).digest('hex').slice(0, 8);
 const assetVersions = { 'assets/css/style.css': hashOf('assets/css/style.css'), 'assets/js/main.js': hashOf('assets/js/main.js') };
 
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-
-// {{picture name="hero-mall" alt="…" class="…" sizes="…" eager}} → responsive <picture>
-function picture(attrs) {
-  const a = {};
-  for (const m of attrs.matchAll(/(\w+)(?:="([^"]*)")?/g)) a[m[1]] = m[2] ?? true;
-  const info = manifest[a.name];
-  if (!info) throw new Error(`Unknown photo "${a.name}" — run tools/images.sh first`);
-  const src = w => `assets/img/photos/${a.name}-${w}`;
-  const set = ext => info.widths.map(w => `${src(w)}.${ext} ${w}w`).join(', ');
-  const fallbackW = info.widths.includes(1024) ? 1024 : info.widths.at(-1);
-  const sizes = a.sizes || '100vw';
-  const eager = a.eager === true;
-  return `<picture${a.pclass ? ` class="${a.pclass}"` : ''}>` +
-    `<source type="image/webp" srcset="${set('webp')}" sizes="${sizes}">` +
-    `<img${a.class ? ` class="${a.class}"` : ''} src="${src(fallbackW)}.jpg" srcset="${set('jpg')}" sizes="${sizes}" ` +
-    `alt="${esc(a.alt ?? '')}" width="${info.width}" height="${info.height}" ` +
-    (eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"') + '></picture>';
-}
-
 const pages = readdirSync(join(root, 'src/pages')).filter(f => f.endsWith('.html')).sort();
 const urls = [];
 
@@ -49,7 +30,7 @@ for (const file of pages) {
   if (!m) throw new Error(`${file}: missing front-matter comment`);
   const meta = JSON.parse(m[1]);
   let body = raw.slice(m[0].length);
-  body = body.replace(/\{\{picture\s+([^}]*)\}\}/g, (_, a) => picture(a));
+  body = expandPictures(body, manifest);
 
   const out = meta.out || file;
   const canonicalPath = out === 'index.html' ? '' : out;

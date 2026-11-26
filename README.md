@@ -18,6 +18,17 @@ bash tools/images.sh        # regenerate WebP/JPEG renditions from tools/photos 
 python3 -m http.server 8765 # preview at http://localhost:8765
 ```
 
+## WordPress theme
+The same pages are also packaged as a WordPress theme, with Insights listing WordPress posts.
+```bash
+node tools/build-wp.mjs     # → dist/grainzmedia/ and dist/grainzmedia.zip
+```
+- `wordpress/theme/` holds the hand-written theme files (templates, `functions.php`, `assets/css/wp.css` for posts). The page designs are generated from `src/pages/` into `pages/*.php`, so edit `src/` and rebuild — never the files in `dist/`.
+- Install: WordPress admin → Appearance → Themes → Add New → Upload Theme → `dist/grainzmedia.zip` → Activate.
+- On activation the theme creates the pages (Home, Retail Media, Performance Marketing, Insights, About, Contact, Press, Privacy Policy, Cookie Policy), sets Home as the front page and Insights as the posts page, creates the categories *Retail Media Insights* and *Performance Insights*, and turns on `/%postname%/` permalinks if none are set. Existing pages and settings are left alone.
+- Home, Retail Media, Performance Marketing, About and Contact always show the built-in design. Press, Privacy Policy and Cookie Policy show their placeholder until you write content for them in the editor.
+- Old static URLs such as `/about.html` redirect to the new pages.
+
 ## Adding a photo
 Drop a master JPEG in `tools/photos/`, run `bash tools/images.sh`, then use it in a page with
 `{{picture name="file-name" alt="…" sizes="…"}}` (add `eager` for above-the-fold images).

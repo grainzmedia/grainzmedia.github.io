@@ -1,0 +1,12 @@
+/*
+Theme Name: GrainzMedia
+Theme URI: https://www.grainzmedia.com
+Author: GrainzMedia
+Description: The GrainzMedia website as a WordPress theme. The designed pages (Home, Retail Media, Performance Marketing, About, Contact) are built into the theme; Insights lists WordPress posts.
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+Text Domain: grainzmedia
+*/
+
+/* Styles live in assets/css/style.css (shared with the static site) and assets/css/wp.css (posts and editor content). */

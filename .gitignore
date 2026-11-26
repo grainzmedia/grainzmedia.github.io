@@ -2,3 +2,6 @@
 .claude/
 # Client-supplied source material (large; keep in shared storage, not in git)
 resources/
+
+# Built WordPress theme (node tools/build-wp.mjs)
+dist/
